@@ -1,27 +1,55 @@
-/*Implement the following functionality into the store:
+import java.util.*;
 
-  instance variables: 
-    profit: how much money the store has made
-    items:  instance variable (could be an array or LinkedList or ArrayList of one of the other classes)
-
-  methods:
-    showItems: displays all items available for sale
-    addItem: adds an item for sale
-    sellItem(itemName): removes the item from the store and adds its price to profit
-    creator(itemName): displays who created the item in question
-
-    You will need to include the following information to be stored in the inheritance heiarchy using the other classes:
-      name of thing being sold
-      price for things that are on sale
-      names of creators of movies and books
-      date of birth of book authors
-      date that things are placed on sale
-      duration of movies
-      publisher of books
-
-    Where these variables are stored and how to name them is up to you!
-*/
+//Author: Spencer Gilcrest
+//Date: 10/2/25
+//This class is the online store that keeps track of business. It allows you to make changes to your store by seeing inventory, selling items, and calculating profit
 public class Store
 {
+  private double profit;
+  private ArrayList<ItemForSale> items = new ArrayList<>();
 
+  public Store(){
+    this.profit = 0.0;
+  }
+
+  //precondition: items has been initialized
+  //postcondition: adds item to items
+  public void addItem(ItemForSale item){
+    items.add(item);
+  }
+
+  //precondition: items has been intitialized
+  //psotcondition: prints list of items
+  public void showItems(){
+    if (items.size() == 0){
+      System.out.println("no items for sale");
+    }
+    else {
+      for (ItemForSale item : items){
+        System.out.println(item + ", ");
+      }
+    }
+  }
+
+  //precondition: items has been initialized
+  //postcondition: adds price of item to profit and removes it from inventory
+  public void sellItem(ItemForSale itemSold){
+    if (items.contains(itemSold)){
+      items.remove(itemSold);
+      profit += itemSold.getPrice();
+      System.out.println(itemSold.getName() + " was sold for $" + itemSold.getPrice());
+    }
+    else{
+      System.out.println(itemSold.getName() + " not found");
+    }
+}
+  //precondition: item has been initialized
+  //post condition: gets the creator of the item
+  public String creator(ItemForSale item){
+    return item.getCreator();
+  }
+
+  public double getProfit(){
+    return profit;
+  }
 }
